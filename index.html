@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Password Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>JS Password Generator</h1>
+            
+            <div class="display-container">
+                <input type="text" id="password-display" readonly placeholder="P@$$w0rd">
+                <button id="copy-btn" title="Copy to clipboard">
+                    <svg class="copy-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                    <span id="copy-tooltip">Copied!</span>
+                </button>
+            </div>
+
+            <div class="settings">
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <span>Password Length</span>
+                        <span id="length-value">16</span>
+                    </div>
+                    <input type="range" id="length-slider" min="8" max="50" value="16">
+                </div>
+
+                <div class="options-grid">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="uppercase" checked>
+                        <span class="checkmark"></span>
+                        Uppercase
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="lowercase" checked>
+                        <span class="checkmark"></span>
+                        Lowercase
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="numbers" checked>
+                        <span class="checkmark"></span>
+                        Numbers
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="symbols" checked>
+                        <span class="checkmark"></span>
+                        Symbols
+                    </label>
+                </div>
+            </div>
+
+            <div class="strength-container">
+                <div class="strength-label">Strength: <span id="strength-text">Medium</span></div>
+                <div class="strength-meter">
+                    <div id="strength-bar"></div>
+                </div>
+            </div>
+
+            <button id="generate-btn">Generate Password</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
