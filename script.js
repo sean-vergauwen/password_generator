@@ -11,6 +11,18 @@ const strengthText = document.getElementById('strength-text');
 const strengthBar = document.getElementById('strength-bar');
 const generateBtn = document.getElementById('generate-btn');
 
+// Flip Card Logic
+const card = document.getElementById('card');
+const infoBtn = document.getElementById('info-btn');
+const backBtn = document.getElementById('back-btn');
+const closeFaqBtn = document.getElementById('close-faq-btn');
+
+const toggleFlip = () => card.classList.toggle('flipped');
+
+[infoBtn, backBtn, closeFaqBtn].forEach(btn => {
+    if (btn) btn.addEventListener('click', toggleFlip);
+});
+
 const charSets = {
     uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     lowercase: 'abcdefghijklmnopqrstuvwxyz',
@@ -18,11 +30,58 @@ const charSets = {
     symbols: '!@#$%^&*()_+~`|}{[]:;?><,./-='
 };
 
+const STORAGE_KEY = 'password-generator-settings';
+
 // Update length display
-lengthSlider.addEventListener('input', (e) => {
-    lengthValue.textContent = e.target.value;
+lengthSlider.addEventListener('input', () => {
     updateStrength();
+    saveSettings();
 });
+
+// Update when options change
+[uppercaseEl, lowercaseEl, numbersEl, symbolsEl].forEach(el => {
+    el.addEventListener('change', () => {
+        updateStrength();
+        saveSettings();
+        generateBtn.click();
+    });
+});
+
+// Also regenerate when slider stops moving
+lengthSlider.addEventListener('change', () => {
+    generateBtn.click();
+});
+
+function saveSettings() {
+    try {
+        const settings = {
+            length: lengthSlider.value,
+            uppercase: uppercaseEl.checked,
+            lowercase: lowercaseEl.checked,
+            numbers: numbersEl.checked,
+            symbols: symbolsEl.checked
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    } catch (err) {
+        console.error('Failed to save settings:', err);
+    }
+}
+
+function loadSettings() {
+    const savedSettings = localStorage.getItem(STORAGE_KEY);
+    if (savedSettings) {
+        try {
+            const settings = JSON.parse(savedSettings);
+            lengthSlider.value = settings.length || 16;
+            uppercaseEl.checked = settings.uppercase !== false;
+            lowercaseEl.checked = settings.lowercase !== false;
+            numbersEl.checked = settings.numbers !== false;
+            symbolsEl.checked = settings.symbols !== false;
+        } catch (err) {
+            console.error('Failed to load settings:', err);
+        }
+    }
+}
 
 // Generate password on click
 generateBtn.addEventListener('click', () => {
@@ -86,6 +145,7 @@ function getRandomChar(type) {
 
 function updateStrength() {
     const length = +lengthSlider.value;
+    lengthValue.textContent = length;
     const hasUpper = uppercaseEl.checked;
     const hasLower = lowercaseEl.checked;
     const hasNumber = numbersEl.checked;
@@ -126,9 +186,6 @@ function showTooltip() {
     }, 2000);
 }
 
-// Initial update
-updateStrength();
-
 // Background Shapes Generation
 function initBackgroundShapes() {
     const bgContainer = document.getElementById('bg-shapes');
@@ -166,11 +223,8 @@ function initBackgroundShapes() {
 
 // Generate a default password on load
 window.addEventListener('load', () => {
+    loadSettings();
+    updateStrength();
     generateBtn.click();
     initBackgroundShapes();
-});
-
-// Update strength when options change
-[uppercaseEl, lowercaseEl, numbersEl, symbolsEl].forEach(el => {
-    el.addEventListener('change', updateStrength);
 });

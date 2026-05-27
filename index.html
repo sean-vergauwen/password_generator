@@ -9,60 +9,105 @@
 <body>
     <div class="bg-shapes" id="bg-shapes"></div>
     <div class="container">
-        <div class="card">
-            <h1>Password Generator</h1>
-            
-            <div class="display-container">
-                <input type="text" id="password-display" readonly placeholder="P@$$w0rd">
-                <button id="copy-btn" title="Copy to clipboard">
-                    <svg class="copy-icon" viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    <span id="copy-tooltip">Copied!</span>
-                </button>
-            </div>
-
-            <div class="settings">
-                <div class="setting-item">
-                    <div class="setting-label">
-                        <span>Password Length</span>
-                        <span id="length-value">16</span>
+        <div class="card" id="card">
+            <div class="card-inner">
+                <!-- Front Side -->
+                <div class="card-front">
+                    <div class="card-header">
+                        <h1>Password Generator</h1>
+                        <button id="info-btn" title="How it works">
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                            </svg>
+                        </button>
                     </div>
-                    <input type="range" id="length-slider" min="8" max="50" value="16">
+                    
+                    <div class="display-container">
+                        <input type="text" id="password-display" readonly placeholder="P@$$w0rd">
+                        <button id="copy-btn" title="Copy to clipboard">
+                            <svg class="copy-icon" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                            <span id="copy-tooltip">Copied!</span>
+                        </button>
+                    </div>
+
+                    <div class="settings">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Password Length</span>
+                                <span id="length-value">16</span>
+                            </div>
+                            <input type="range" id="length-slider" min="8" max="50" value="16">
+                        </div>
+
+                        <div class="options-grid">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="uppercase" checked>
+                                <span class="checkmark"></span>
+                                Uppercase
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="lowercase" checked>
+                                <span class="checkmark"></span>
+                                Lowercase
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="numbers" checked>
+                                <span class="checkmark"></span>
+                                Numbers
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="symbols" checked>
+                                <span class="checkmark"></span>
+                                Symbols
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="strength-container">
+                        <div class="strength-label">Strength: <span id="strength-text">Medium</span></div>
+                        <div class="strength-meter">
+                            <div id="strength-bar"></div>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn">Generate Password</button>
                 </div>
 
-                <div class="options-grid">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="uppercase" checked>
-                        <span class="checkmark"></span>
-                        Uppercase
-                    </label>
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="lowercase" checked>
-                        <span class="checkmark"></span>
-                        Lowercase
-                    </label>
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="numbers" checked>
-                        <span class="checkmark"></span>
-                        Numbers
-                    </label>
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="symbols" checked>
-                        <span class="checkmark"></span>
-                        Symbols
-                    </label>
+                <!-- Back Side (FAQ) -->
+                <div class="card-back">
+                    <div class="card-header">
+                        <h1>About This Project</h1>
+                        <button id="back-btn" title="Back to generator">
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="faq-content">
+                        <div class="faq-item">
+                            <h3>How does it work?</h3>
+                            <p>I built this to generate passwords locally in your browser using cryptographically secure random numbers. No data is ever sent to a server.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my data safe?</h3>
+                            <p><strong>Absolutely.</strong> Your passwords never leave your device. I don't have a backend, and I'll never track what you generate.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Why did I make this?</h3>
+                            <p>I wanted a clean, fast, and private way to create strong passwords without trusting third-party managers for every little thing.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Open Source</h3>
+                            <p>This is a personal project, and the code is fully open. You can audit it yourself on <a href="https://github.com/sean-vergauwen/password_generator" target="_blank" rel="noopener noreferrer">GitHub</a> to verify how I handle your security.</p>
+                        </div>
+                    </div>
+
+                    <button id="close-faq-btn">Got it!</button>
                 </div>
             </div>
-
-            <div class="strength-container">
-                <div class="strength-label">Strength: <span id="strength-text">Medium</span></div>
-                <div class="strength-meter">
-                    <div id="strength-bar"></div>
-                </div>
-            </div>
-
-            <button id="generate-btn">Generate Password</button>
         </div>
         
         <footer>

@@ -42,6 +42,32 @@ body {
 }
 
 .card {
+    perspective: 1000px;
+    background: transparent;
+    padding: 0;
+    border-radius: 2rem;
+    border: none;
+    box-shadow: none;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     background: var(--glass-bg);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
@@ -51,13 +77,119 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    text-align: center;
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.95); /* More opaque for better readability */
+    backdrop-filter: blur(24px) saturate(180%);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2.5rem;
+}
+
+.card-header h1 {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+#info-btn, #back-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#info-btn:hover, #back-btn:hover {
     color: #ffffff;
-    letter-spacing: -0.02em;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* FAQ Content */
+.faq-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    padding-right: 0.5rem;
+}
+
+.faq-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.faq-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.faq-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.faq-item {
+    margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #cbd5e1; /* Brighter than text-muted for better contrast */
+}
+
+.faq-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.faq-item a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.faq-item strong {
+    color: #ffffff;
+}
+
+#close-faq-btn {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#close-faq-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
 }
 
 /* Password Display */
