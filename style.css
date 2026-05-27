@@ -281,7 +281,7 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
 }
 
-/* Geometric Background */
+/* Geometric Background Shapes */
 .bg-shapes {
     position: fixed;
     top: 0;
@@ -289,38 +289,15 @@ input[type="range"]::-webkit-slider-thumb {
     width: 100%;
     height: 100%;
     z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .shape {
     position: absolute;
     border: 2px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
     animation: rotate 60s linear infinite;
-}
-
-.shape-1 {
-    width: 200px;
-    height: 200px;
-    top: 10%;
-    left: 15%;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-}
-
-.shape-2 {
-    width: 150px;
-    height: 150px;
-    bottom: 15%;
-    right: 10%;
-    border-radius: 50%;
-    animation-direction: reverse;
-}
-
-.shape-3 {
-    width: 100px;
-    height: 100px;
-    top: 40%;
-    right: 20%;
-    border-radius: 10% 90% 10% 90% / 90% 10% 90% 10%;
-    animation-duration: 40s;
 }
 
 @keyframes rotate {

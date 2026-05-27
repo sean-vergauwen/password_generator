@@ -128,9 +128,46 @@ function showTooltip() {
 
 // Initial update
 updateStrength();
+
+// Background Shapes Generation
+function initBackgroundShapes() {
+    const bgContainer = document.getElementById('bg-shapes');
+    const shapeCount = 5;
+    
+    // Preset geometric styles based on original look
+    const presets = [
+        { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%' }, // Organic square
+        { borderRadius: '50%' }, // Circle
+        { borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10%' }, // Diamond-ish
+        { borderRadius: '40% 60% 40% 60% / 60% 40% 60% 40%' }  // Rounded square
+    ];
+
+    for (let i = 0; i < shapeCount; i++) {
+        const shape = document.createElement('div');
+        shape.classList.add('shape');
+        
+        const size = Math.random() * 150 + 100;
+        const preset = presets[Math.floor(Math.random() * presets.length)];
+        
+        shape.style.width = `${size}px`;
+        shape.style.height = `${size}px`;
+        shape.style.left = `${Math.random() * 80 + 10}%`;
+        shape.style.top = `${Math.random() * 80 + 10}%`;
+        shape.style.borderRadius = preset.borderRadius;
+        
+        // Randomize animation
+        shape.style.animationDuration = `${Math.random() * 40 + 40}s`;
+        shape.style.animationDelay = `${Math.random() * -60}s`;
+        if (Math.random() > 0.5) shape.style.animationDirection = 'reverse';
+        
+        bgContainer.appendChild(shape);
+    }
+}
+
 // Generate a default password on load
 window.addEventListener('load', () => {
     generateBtn.click();
+    initBackgroundShapes();
 });
 
 // Update strength when options change
